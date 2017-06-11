@@ -11,6 +11,15 @@ class App extends Component {
     this.handleSliderChange = this.handleSliderChange.bind(this);
   }
 
+  componentDidMount() {
+    const self = this;
+    fetch('http://localhost:3001').then(function(response) {
+      return response.json();
+    }).then(json => {
+      self.setState({res: json});
+    })
+  }
+
   handleSliderChange(event) {
     const element = event.target.getAttribute('id');
     this.setState({
@@ -19,6 +28,15 @@ class App extends Component {
         value: event.target.value
       }
     });
+  }
+
+  _handleFormSubmit() {
+
+  }
+
+  _handleImageUpload(e) {
+
+    console.log("image was upload!", e.target.value);
   }
 
   render() {
@@ -33,7 +51,15 @@ class App extends Component {
           max="255"
           defaultValue={this.state.value}
         />
-        <ImageOutputArea></ImageOutputArea>
+        <form ref='uploadForm'
+          id='uploadForm'
+          action='http://localhost:3001/upload' 
+          method='post'
+          encType="multipart/form-data">
+          <input type="file" name="sampleFile" />
+          <input type='submit' value='Upload!' />
+        </form>
+        <ImageOutputArea>{this.state.res ? this.state.res.test : null}</ImageOutputArea>
       </div>
     );
   }
