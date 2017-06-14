@@ -9,6 +9,7 @@ class App extends Component {
     super();
     this.state = {};
     this.handleSliderChange = this.handleSliderChange.bind(this);
+    this._handleFormSubmit = this._handleFormSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -30,8 +31,16 @@ class App extends Component {
     });
   }
 
-  _handleFormSubmit() {
-
+  _handleFormSubmit(e) {
+    console.log('submitting');
+    e.preventDefault();
+    fetch('http://localhost:3001/upload', {
+    	method: 'post',
+    	body: new FormData(document.getElementById('uploadForm'))
+    }).then(function (response) {
+      console.log(response);
+      return response;
+    });
   }
 
   _handleImageUpload(e) {
@@ -44,18 +53,56 @@ class App extends Component {
       <div className="App">
         <h3> This will take an image and do image processing things to it</h3>
         <div>{this.state.value}</div>
-        <Slider
-          onChange={this.handleSliderChange}
-          step="1"
-          min="0"
-          max="255"
-          defaultValue={this.state.value}
-        />
+
         <form ref='uploadForm'
+          onSubmit={this._handleFormSubmit}
+          style={{display: 'flex',
+          flexFlow: 'column'}}
           id='uploadForm'
-          action='http://localhost:3001/upload' 
           method='post'
           encType="multipart/form-data">
+          <Slider
+            onChange={this.handleSliderChange}
+            name="1"
+            step="1"
+            min="0"
+            max="255"
+          />
+          <Slider
+            onChange={this.handleSliderChange}
+            name="2"
+            step="1"
+            min="0"
+            max="255"
+          />
+          <Slider
+            onChange={this.handleSliderChange}
+            name="3"
+            step="1"
+            min="0"
+            max="255"
+          />
+          <Slider
+            onChange={this.handleSliderChange}
+            name="4"
+            step="1"
+            min="0"
+            max="255"
+          />
+          <Slider
+            onChange={this.handleSliderChange}
+            name="5"
+            step="1"
+            min="0"
+            max="255"
+          />
+          <Slider
+            onChange={this.handleSliderChange}
+            name="6"
+            step="1"
+            min="0"
+            max="255"
+          />
           <input type="file" name="sampleFile" />
           <input type='submit' value='Upload!' />
         </form>

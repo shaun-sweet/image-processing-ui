@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER Alexey Kornilov <alexey.kornilov@kavolorn.ru>
+MAINTAINER Shaun Sweet <shaun@shaunsweet.com>
 
 RUN apt-get update \
 	&& apt-get upgrade -y \
@@ -20,10 +20,10 @@ RUN cd \
 	&& make -j3 \
 	&& make install \
 	&& cd \
-	&& rm 3.1.0.zip \
-	&& curl -sL https://deb.nodesource.com/setup_8.x | bash - \
-	&& apt-get install -y nodejs
+	&& rm 3.1.0.zip
 
+RUN apt-get install -y python-software-properties && curl -sL https://deb.nodesource.com/setup_6.11 | sudo -E bash -\
+&& apt-get -y install nodejs
 RUN mkdir -p /usr/app
 
 COPY . /usr/app
@@ -32,4 +32,4 @@ WORKDIR /usr/app
 
 RUN npm install
 
-CMD ["npm", "run", "api"]
+CMD ["npm", "run", "server"]

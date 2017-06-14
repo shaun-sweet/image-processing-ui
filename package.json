@@ -21,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "api": "nodemon ./server.js"
+    "server": "nodemon ./server.js",
+    "api": "sudo docker-compose down && sudo docker-compose up"
   },
   "moduleRoots": [
     "src"

@@ -7,12 +7,18 @@ const fs = require('fs');
 const PythonShell = require('python-shell');
 const fileUpload = require('express-fileupload');
 
+var passAsArgs = function (args) {
+  return {
+    mode: 'text',
+    scriptPath: '/home/sweet/projects/image-processing-ui/api',
+    args: [JSON.stringify(args)]
+  }
+}
 
-var options = {
-  mode: 'text',
-  scriptPath: '/home/sweet/projects/image-processing-ui/api',
-  args: [JSON.stringify({name:'groot',occuptation:'tree'})]
-};
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -34,17 +40,36 @@ app.get('/', function (req, res) {
   res.json({test: response, alex: "cool", travis: "very gay... very very gay.  sad really"});
 })
 
+var processImage = function () {
+
+};
+
+var dstFilePath = function (name) {
+  return filePath()+'output/' + name;
+}
+
+var srcFilePath = function (name) {
+  return filePath()+'input/' + name;
+}
+
+var filePath = function () {
+  return process.cwd()+'/api/';
+}
+
 app.post('/upload', function (req, res) {
-  let sampleFile = req.files.sampleFile;
-  console.log(sampleFile);
+  console.log(req.body);
+  if (req.files.sampleFile) {
+    let sampleFile = req.files.sampleFile;
+    let srcFileName = uuidV1();
+    let dstFileName = uuidV1();
+    sampleFile.mv(srcFilePath(srcFileName), function(err) {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      res.send(dstFilePath(dstFileName));
+    });
 
-  sampleFile.mv('/home/sweet/projects/image-processing-ui/api/images/'+ uuidV1() +'.desktop', function(err) {
-    if (err) {
-      return res.status(500).send(err);
-    }
-
-    res.send('File uploaded!');
-  });
+  }
 })
 
 app.listen(3001, function () {
