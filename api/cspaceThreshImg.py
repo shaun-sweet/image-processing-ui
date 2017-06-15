@@ -112,7 +112,7 @@ def main(img, cspace_label, slider_pos):
     """
 
     # create colorspace labels to be displayed
-    cspace_dict = {'BGR':0,'HSV':1,'HLS':2,'Lab':3,'Luv':4,'YCrCb':5,'XYZ':6,'Gray':7}
+    cspace_dict = {'BGR':0,'HSV':1,'HLS':2,'Lab':3,'Luv':4,'YCrCb':5,'XYZ':6,'Grayscale':7}
     cspace = cspace_dict[cspace_label]
 
     # create thresholded image
