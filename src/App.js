@@ -53,6 +53,8 @@ class App extends Component {
           encType="multipart/form-data">
           <ColorSpaceLabels />
           <SliderControls
+            min="0"
+            max="100"
             onChange={this._handleSliderChange}
           />
           <input type="file" name="uploadedImage" />
