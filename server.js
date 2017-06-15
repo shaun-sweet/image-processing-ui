@@ -1,11 +1,15 @@
-const express = require('express')
+"use strict";
+require('dotenv').config();
+const express = require('express');
 const uuidV1 = require('uuid/v1');
-const app = express()
-const bodyParser = require('body-parser')
-const path = require('path')
+const app = express();
+const bodyParser = require('body-parser');
+const path = require('path');
 const fs = require('fs');
 const PythonShell = require('python-shell');
 const fileUpload = require('express-fileupload');
+const PORT = process.env.APP_ENV === "prod" ? 80 : 3001;
+console.log(process.env.APP_ENV);
 
 var passAsArgs = function (args) {
   return {
@@ -15,6 +19,8 @@ var passAsArgs = function (args) {
     args: JSON.stringify(args)
   }
 }
+
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.static(path.join(__dirname, 'api', 'output')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -32,6 +38,7 @@ app.use(fileUpload());
 
 app.get('/', function (req, res) {
   let response = "filename: "+ uuidV1();
+  console.log('connection handled!');
   res.send("hello")
 })
 
@@ -108,6 +115,6 @@ app.post('/upload', function (req, res) {
   }
 })
 
-app.listen(3001, function () {
-  console.log('Example app listening on port 3001!')
-})
+app.listen(PORT, function () {
+  console.log(`Example app listening on port ${PORT}!`)
+});

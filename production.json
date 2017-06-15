@@ -1,0 +1,7 @@
+{
+	"uid": "image-processing",
+	"append": true,
+	"watch": true,
+	"script": "startup.sh",
+        "sourceDir": "/home/ssweet/image-processing-ui"
+}

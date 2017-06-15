@@ -4,6 +4,6 @@ services:
     container_name: image-processing-api
     build: .
     ports:
-      - "3001:3001"
+      - "80:80"
     volumes:
       - .:/usr/app
