@@ -1,11 +1,11 @@
 import React from 'react'
 import 'styles/slider.css';
-[
-  {
-    name: "c1min",
-    
-  }
-]
+// cspaceLabels = [
+//   {
+//     name: "BGR",
+//     sliderValues: [0, 255, 0, 255, 0, 255]
+//   }
+// ]
 const sliders = ["c1min", "c1max", "c2min", "c2max", "c3min", "c3max"];
 const Slider = (props) => {
   return <input

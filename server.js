@@ -61,40 +61,46 @@ var filePath = function () {
   return process.cwd()+'/api/';
 }
 
+const prepareArgs = (req, srcFileName, dstFileName) => {
+  let params = req.body;
+  console.log(srcFilePath(srcFileName),dstFilePath(dstFileName));
+  return {
+    cspaceLabel: params.colorSpaceLabel,
+    paths: {
+      srcPath: srcFilePath(srcFileName),
+      dstPath: dstFilePath(dstFileName)
+    },
+    sliderPos: [
+      parseInt(params.c1min),
+      parseInt(params.c1max),
+      parseInt(params.c2min),
+      parseInt(params.c2max),
+      parseInt(params.c3min),
+      parseInt(params.c3max)
+    ]
+  }
+}
+
 app.post('/upload', function (req, res) {
-  var params = req.body;
-  console.log('params: ', params);
-  if (req.files.sampleFile) {
-    let sampleFile = req.files.sampleFile;
+  console.log('params: ', req.body);
+  if (req.files.uploadedImage) {
     let srcFileName = fileNameGenerator();
     let dstFileName = fileNameGenerator();
-    console.log(srcFileName);
-    let processingInput = {
-      cspaceLabel: params.colorSpaceLabel,
-      paths: {
-        srcPath: srcFilePath(srcFileName),
-        dstPath: dstFilePath(dstFileName)
-      },
-      sliderPos: [
-        parseInt(params.c1min),
-        parseInt(params.c1max),
-        parseInt(params.c2min),
-        parseInt(params.c2max),
-        parseInt(params.c3min),
-        parseInt(params.c3max)
-      ]
-    };
-    processingInput.cspaceLabel = processingInput.cspaceLabel || "BGR";
-    sampleFile.mv(srcFilePath(srcFileName), function(err) {
+    let apiArgs = prepareArgs(req, srcFileName, dstFileName)
+    let uploadedImage = req.files.uploadedImage;
+    apiArgs.cspaceLabel = apiArgs.cspaceLabel || "BGR";
+    uploadedImage.mv(apiArgs.paths.srcPath, function(err) {
       if (err) {
+        console.log(err);
         return res.status(500).send(err);
       }
-      console.log(passAsArgs(processingInput));
-      PythonShell.run('/cspaceIO.py', passAsArgs(processingInput), function (err, results) {
+      PythonShell.run('/cspaceIO.py', passAsArgs(apiArgs), function (err, results) {
+          console.log(err);
         if (err) throw err;
+
         // results is an array consisting of messages collected during execution
         console.log('results: %j', results);
-        fs.unlinkSync(processingInput.paths.srcPath);
+        // fs.unlinkSync(apiArgs.paths.srcPath);
         res.send(dstFileName);
       });
     });

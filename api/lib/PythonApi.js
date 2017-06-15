@@ -10,4 +10,12 @@ default export class PythonApi {
       args: JSON.stringify(args)
     };
   }
+  PythonShell.run('/cspaceIO.py', passAsArgs(processingInput), function (err, results) {
+    if (err) throw err;
+    // results is an array consisting of messages collected during execution
+    console.log('results: %j', results);
+    fs.unlinkSync(processingInput.paths.srcPath);
+    res.send(dstFileName);
+  });
+
 }

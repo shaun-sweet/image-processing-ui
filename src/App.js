@@ -4,7 +4,7 @@ import ImageOutputArea from 'components/ImageOutputArea';
 import ColorSpaceLabels from 'components/ColorSpaceLabels';
 import 'styles/App.css';
 
-const endpointUrl = "http://1665712a.ngrok.io";
+const endpointUrl = require('config/constants').endpointUrl;
 
 class App extends Component {
 
@@ -27,7 +27,7 @@ class App extends Component {
   _handleImageUpload(e) {
     var _this = this;
     e.preventDefault();
-    fetch(endpointUrl+'/upload', {
+    fetch(endpointUrl+'upload', {
     	method: 'post',
     	body: new FormData(document.getElementById('uploadForm'))
     }).then(function (response) {
@@ -55,7 +55,7 @@ class App extends Component {
           <SliderControls
             onChange={this._handleSliderChange}
           />
-          <input type="file" name="sampleFile" />
+          <input type="file" name="uploadedImage" />
           <input type='submit' value='Upload!' />
         </form>
         <ImageOutputArea
