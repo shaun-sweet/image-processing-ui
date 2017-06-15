@@ -10,11 +10,12 @@ const fileUpload = require('express-fileupload');
 var passAsArgs = function (args) {
   return {
     mode: 'text',
-    scriptPath: '/home/sweet/projects/image-processing-ui/api',
-    args: [JSON.stringify(args)]
+    pythonPath: '/usr/bin/python3',
+    scriptPath: process.cwd() + "/api",
+    args: JSON.stringify(args)
   }
 }
-
+app.use(express.static(path.join(__dirname, 'api', 'output')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -31,17 +32,17 @@ app.use(fileUpload());
 
 app.get('/', function (req, res) {
   let response = "filename: "+ uuidV1();
-  // PythonShell.run('testIO.py', options, function (err, results) {
-  //   if (err) throw err;
-  //   // results is an array consisting of messages collected during execution
-  //   console.log('results: %j', JSON.parse(results[0]));
-  // });
-
-  res.json({test: response, alex: "cool", travis: "very gay... very very gay.  sad really"});
+  res.send("hello")
 })
 
 var processImage = function () {
+  PythonShell.run('/cspaceIO.py', passAsArgs(test), function (err, results) {
+    if (err) throw err;
+    // results is an array consisting of messages collected during execution
+    console.log('results: %j', results);
 
+    console.log(test.name);
+  });
 };
 
 var dstFilePath = function (name) {
@@ -52,21 +53,50 @@ var srcFilePath = function (name) {
   return filePath()+'input/' + name;
 }
 
+var fileNameGenerator = function () {
+  return uuidV1()+".jpg";
+}
+
 var filePath = function () {
   return process.cwd()+'/api/';
 }
 
 app.post('/upload', function (req, res) {
-  console.log(req.body);
+  var params = req.body;
+  console.log('params: ', params);
   if (req.files.sampleFile) {
     let sampleFile = req.files.sampleFile;
-    let srcFileName = uuidV1();
-    let dstFileName = uuidV1();
+    let srcFileName = fileNameGenerator();
+    let dstFileName = fileNameGenerator();
+    console.log(srcFileName);
+    let processingInput = {
+      cspaceLabel: params.colorSpaceLabel,
+      paths: {
+        srcPath: srcFilePath(srcFileName),
+        dstPath: dstFilePath(dstFileName)
+      },
+      sliderPos: [
+        parseInt(params.c1min),
+        parseInt(params.c1max),
+        parseInt(params.c2min),
+        parseInt(params.c2max),
+        parseInt(params.c3min),
+        parseInt(params.c3max)
+      ]
+    };
+    processingInput.cspaceLabel = processingInput.cspaceLabel || "BGR";
     sampleFile.mv(srcFilePath(srcFileName), function(err) {
       if (err) {
         return res.status(500).send(err);
       }
-      res.send(dstFilePath(dstFileName));
+      console.log(passAsArgs(processingInput));
+      PythonShell.run('/cspaceIO.py', passAsArgs(processingInput), function (err, results) {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        console.log('results: %j', results);
+        fs.unlinkSync(processingInput.paths.srcPath);
+        res.send(dstFileName);
+      });
     });
 
   }

@@ -14,7 +14,6 @@ __email__ = "ar@reynoldsalexander.com"
 
 if __name__ == "__main__":
     """To be ran from command line
-
     Usage: python3 testIO.py jsonString
     Example: python3 testIO.py '{"name":"groot","occupation":"tree"}'
     """

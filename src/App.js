@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import Slider from 'components/Slider';
+import SliderControls from 'components/SliderControls';
 import ImageOutputArea from 'components/ImageOutputArea';
+import ColorSpaceLabels from 'components/ColorSpaceLabels';
 import 'styles/App.css';
+
+const endpointUrl = "http://1665712a.ngrok.io";
 
 class App extends Component {
 
@@ -9,43 +12,30 @@ class App extends Component {
     super();
     this.state = {};
     this.handleSliderChange = this.handleSliderChange.bind(this);
-    this._handleFormSubmit = this._handleFormSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    const self = this;
-    fetch('http://localhost:3001').then(function(response) {
-      return response.json();
-    }).then(json => {
-      self.setState({res: json});
-    })
+    this._handleImageUpload = this._handleImageUpload.bind(this);
   }
 
   handleSliderChange(event) {
     const element = event.target.getAttribute('id');
     this.setState({
-      value: event.target.value,
       [element]: {
         value: event.target.value
       }
     });
   }
 
-  _handleFormSubmit(e) {
-    console.log('submitting');
+  _handleImageUpload(e) {
+    var _this = this;
     e.preventDefault();
-    fetch('http://localhost:3001/upload', {
+    fetch(endpointUrl+'/upload', {
     	method: 'post',
     	body: new FormData(document.getElementById('uploadForm'))
     }).then(function (response) {
-      console.log(response);
-      return response;
+      response.text()
+        .then(function (response) {
+          _this.setState({imgUrl: response});
+        })
     });
-  }
-
-  _handleImageUpload(e) {
-
-    console.log("image was upload!", e.target.value);
   }
 
   render() {
@@ -55,58 +45,22 @@ class App extends Component {
         <div>{this.state.value}</div>
 
         <form ref='uploadForm'
-          onSubmit={this._handleFormSubmit}
+          onSubmit={this._handleImageUpload}
           style={{display: 'flex',
           flexFlow: 'column'}}
           id='uploadForm'
           method='post'
           encType="multipart/form-data">
-          <Slider
-            onChange={this.handleSliderChange}
-            name="1"
-            step="1"
-            min="0"
-            max="255"
-          />
-          <Slider
-            onChange={this.handleSliderChange}
-            name="2"
-            step="1"
-            min="0"
-            max="255"
-          />
-          <Slider
-            onChange={this.handleSliderChange}
-            name="3"
-            step="1"
-            min="0"
-            max="255"
-          />
-          <Slider
-            onChange={this.handleSliderChange}
-            name="4"
-            step="1"
-            min="0"
-            max="255"
-          />
-          <Slider
-            onChange={this.handleSliderChange}
-            name="5"
-            step="1"
-            min="0"
-            max="255"
-          />
-          <Slider
-            onChange={this.handleSliderChange}
-            name="6"
-            step="1"
-            min="0"
-            max="255"
+          <ColorSpaceLabels />
+          <SliderControls
+            onChange={this._handleSliderChange}
           />
           <input type="file" name="sampleFile" />
           <input type='submit' value='Upload!' />
         </form>
-        <ImageOutputArea>{this.state.res ? this.state.res.test : null}</ImageOutputArea>
+        <ImageOutputArea
+          src={this.state.imgUrl}
+        />
       </div>
     );
   }

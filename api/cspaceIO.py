@@ -16,8 +16,8 @@ __email__ = "ar@reynoldsalexander.com"
 
 
 def __sanitize(filename):
-    return "".join([c for c in filename 
-        if c.isalpha() or c.isdigit() or c in ['.','_','/']]).rstrip()
+    return "".join([c for c in filename
+        if c.isalpha() or c.isdigit() or c in ['.', '_', '-', '/']]).rstrip()
 
 
 def __checkimg(imgPath):
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Color threshold an image in any colorspace \
         and save it to a file.')
 
-    parser.add_argument('jsonIn', 
+    parser.add_argument('jsonIn',
         help='JSON containing imgPath (str), cspaceLabel (str), and sliderPos (6-long int list[])')
 
     args = parser.parse_args()
