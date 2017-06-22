@@ -3,8 +3,8 @@ import SliderControls from 'components/SliderControls';
 import ImageOutputArea from 'components/ImageOutputArea';
 import ColorSpaceLabels from 'components/ColorSpaceLabels';
 import 'styles/App.css';
-
-const endpointUrl = require('config/constants').endpointUrl;
+require('dotenv').config()
+const endpointUrl = "http://vps.shaunsweet.com/";
 
 class App extends Component {
 
@@ -53,6 +53,8 @@ class App extends Component {
           encType="multipart/form-data">
           <ColorSpaceLabels />
           <SliderControls
+            min="0"
+            max="100"
             onChange={this._handleSliderChange}
           />
           <input type="file" name="uploadedImage" />
