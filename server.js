@@ -81,6 +81,7 @@ const prepareArgs = (req, srcFileName, dstFileName) => {
   }
 }
 
+
 app.post('/upload', function (req, res) {
   console.log('params: ', req.body);
   if (req.files.uploadedImage) {
