@@ -3,8 +3,7 @@ import SliderControls from 'components/SliderControls';
 import ImageOutputArea from 'components/ImageOutputArea';
 import ColorSpaceLabels from 'components/ColorSpaceLabels';
 import 'styles/App.css';
-require('dotenv').config()
-const endpointUrl = "http://vps.shaunsweet.com/";
+import endPointUrl from 'environment';
 
 class App extends Component {
 
@@ -27,15 +26,12 @@ class App extends Component {
   _handleImageUpload(e) {
     var _this = this;
     e.preventDefault();
-    fetch(endpointUrl+'upload', {
+    fetch(endPointUrl+'upload', {
     	method: 'post',
     	body: new FormData(document.getElementById('uploadForm'))
-    }).then(function (response) {
-      response.text()
-        .then(function (response) {
-          _this.setState({imgUrl: response});
-        })
-    });
+    }).then( response => response.text()
+      .then( response => _this.setState({ imgUrl: response }) )
+    );
   }
 
   render() {
