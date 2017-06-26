@@ -42,7 +42,7 @@ ENV PATH      $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN mkdir -p /usr/app
 
 COPY . /usr/app
-EXPOSE 3001
+EXPOSE 1338
 WORKDIR /usr/app
 
 RUN npm install
