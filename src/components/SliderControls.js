@@ -1,5 +1,6 @@
 import React from 'react'
 import 'styles/slider.css';
+import 'styles/sliderControls.css';
 // cspaceLabels = [
 //   {
 //     name: "BGR",
@@ -23,7 +24,7 @@ const Slider = (props) => {
 
 const SliderControls = (props) => {
   return (
-    <div style={{display: 'flex', flexFlow: 'column'}}>
+    <div className='slider-controls'>
       {sliders.map(slider =>
         <Slider
           type='range'

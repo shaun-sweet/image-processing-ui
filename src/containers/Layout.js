@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import SliderControls from 'components/SliderControls';
 import ImageOutputArea from 'components/ImageOutputArea';
 import ColorSpaceLabels from 'components/ColorSpaceLabels';
+import RenderButton from 'components/RenderButton';
+import UploadFileButton from 'components/UploadFileButton';
 import endPointUrl from 'environment';
 
 import 'styles/Layout.css';
@@ -39,8 +41,6 @@ export default class Layout extends Component {
     return (
       <div className="layout">
         <h3> This will take an image and do image processing things to it</h3>
-        <div>{this.state.value}</div>
-
         <form ref='uploadForm'
           onSubmit={this._handleImageUpload}
           style={{display: 'flex',
@@ -55,8 +55,8 @@ export default class Layout extends Component {
             max="100"
             onChange={this._handleSliderChange}
           />
-          <input type="file" name="uploadedImage" />
-          <input type='submit' value='Upload!' />
+          <UploadFileButton />
+          <RenderButton />
         </form>
         <ImageOutputArea
           src={this.state.imgUrl}
