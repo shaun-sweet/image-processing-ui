@@ -8,8 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const PythonShell = require('python-shell');
 const fileUpload = require('express-fileupload');
-const PORT = process.env.APP_ENV === "prod" ? 80 : 3001;
-console.log(process.env.APP_ENV);
+const PORT = process.env.REACT_APP_ASSIGNED_PORT;
 
 var passAsArgs = function (args) {
   return {
