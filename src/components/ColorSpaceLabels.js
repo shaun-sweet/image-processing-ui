@@ -1,10 +1,10 @@
 import React from 'react'
-import 'styles/colorSpaceLabels.css';
+import 'styles/colorspaceLabels.css';
 
-const ColorSpaceLabels = (props) => {
+const ColorspaceLabels = (props) => {
   const labels = ["BGR", "HSV", "HLS", "Lab", "Luv", "YCrCb", "XYZ", "Grayscale"];
 
-  const renderColorSpaceLabels = () => {
+  const renderColorspaceLabels = () => {
     return labels.map(label => {
       return (
         <div key={label}>
@@ -15,10 +15,10 @@ const ColorSpaceLabels = (props) => {
     });
   };
   return (
-    <div className="color-space-labels">
-      {renderColorSpaceLabels()}
+    <div className="colorspace-labels">
+      {renderColorspaceLabels()}
     </div>
       )
 }
 
-export default ColorSpaceLabels;
+export default ColorspaceLabels;

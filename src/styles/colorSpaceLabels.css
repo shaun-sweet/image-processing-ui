@@ -1,3 +1,13 @@
-.color-space-labels {
+.colorspace-labels {
+    display: flex;
+    margin: 0 auto;
+}
 
+.colorspace-labels > div > input[type=radio] {
+    /*display: none;*/
+}
+
+.colorspace-labels > div > label {
+    /*display: flex;*/
+    /*padding: 5px;*/
 }

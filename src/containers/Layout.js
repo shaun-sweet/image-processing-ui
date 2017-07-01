@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SliderControls from 'components/SliderControls';
 import ImageOutputArea from 'components/ImageOutputArea';
-import ColorSpaceLabels from 'components/ColorSpaceLabels';
+import ColorspaceLabels from 'components/ColorspaceLabels';
 import RenderButton from 'components/RenderButton';
 import UploadFileButton from 'components/UploadFileButton';
 import endPointUrl from 'environment';
@@ -49,7 +49,7 @@ export default class Layout extends Component {
           method='post'
           encType="multipart/form-data"
         >
-          <ColorSpaceLabels />
+          <ColorspaceLabels />
           <SliderControls
             min="0"
             max="100"
