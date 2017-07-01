@@ -8,6 +8,6 @@
 }
 
 .colorspace-labels > div > label {
-    /*display: flex;*/
-    /*padding: 5px;*/
+    display: block;
+    margin: 0 20px;
 }
