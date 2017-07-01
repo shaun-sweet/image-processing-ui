@@ -8,7 +8,7 @@ const ColorspaceLabels = (props) => {
     return labels.map(label => {
       return (
         <div key={label}>
-          <input type="radio" name="colorSpaceLabel" value={label} />
+          <input id={label} type="radio" name="colorSpaceLabel" value={label} />
           <label htmlFor={label}>{label}</label>
         </div>
       )

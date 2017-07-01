@@ -3,7 +3,7 @@ import 'styles/renderButton.css';
 
 const RenderButton = (props) => {
   return (
-    <input type='submit' value='Upload!' className="render-button" />
+    <input type='submit' value='Render' className="render-button" />
   )
 }
 export default RenderButton;

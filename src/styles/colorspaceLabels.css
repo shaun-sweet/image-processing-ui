@@ -1,13 +1,29 @@
 .colorspace-labels {
+    order: 1;
     display: flex;
-    margin: 0 auto;
+    margin: 5ex auto;
 }
-
 .colorspace-labels > div > input[type=radio] {
-    /*display: none;*/
+    display: none;
+    margin: 0;
 }
-
+.colorspace-labels > div > label:hover {
+    background: #a5acb1;
+}
+.colorspace-labels > div > input[type=radio]:checked + label{
+    background: #02b3e4;
+}
 .colorspace-labels > div > label {
-    display: block;
-    margin: 0 20px;
+    padding: 1ex 20px;
+    margin: 0 1px 0 0;
+    background: #d7dcdf;
+    transition: all .25s ease;
+}
+.colorspace-labels > div:first-child > label {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+.colorspace-labels > div:last-child > label {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 }

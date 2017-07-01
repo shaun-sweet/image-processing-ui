@@ -1,4 +1,6 @@
 .slider-controls {
+  order: 2;
   display: flex;
   flex-flow: column;
+
 }
