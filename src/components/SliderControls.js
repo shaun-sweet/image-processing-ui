@@ -25,19 +25,33 @@ const Slider = (props) => {
 const SliderControls = (props) => {
   return (
     <div className='slider-controls'>
-      {sliders.map(slider =>
-        <Slider
-          type='range'
-          className="slider"
-          key={slider}
-          name={slider}
-          onChange={props.onChange}
-          id={slider}
-          step={props.step}
-          min={props.min}
-          max={props.max}
-        />
-      )}</div>)
+      {sliders.map((slider) => {
+        return(
+          <div className="slider-container" key={slider}>
+
+            <Slider
+              type='range'
+              className="slider"
+              name={slider}
+              onChange={props.onChange}
+              id={slider}
+              step={props.step}
+              min={props.min}
+              value={props.value}
+              max={props.max}
+            />
+            <SliderValueDisplay
+              id={slider}
+              value={props.value}
+            />
+          </div>)
+      })}
+
+    </div>)
+}
+
+const SliderValueDisplay = (props) => {
+  return <input className="slider-value-display" id={props.name} type="text" value={props.value} />
 }
 
 export default SliderControls;
