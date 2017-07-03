@@ -1,11 +1,14 @@
 .slider {
   -webkit-appearance: none;
-  margin: 18px auto;
+  margin: 18pt auto;
   width: 100%;
+  padding: 0 2em;
 }
+
 .slider:focus {
   outline: none;
 }
+
 .slider::-webkit-slider-runnable-track {
   width: 100%;
   height: 8px;
@@ -13,9 +16,11 @@
   background: #d7dcdf;
   border-radius: 4px;
 }
+
 .slider:focus::-webkit-slider-runnable-track {
   background: #d7dcdf;
 }
+
 .slider::-webkit-slider-thumb {
   height: 16px;
   width: 16px;
@@ -25,9 +30,11 @@
   -webkit-appearance: none;
   margin-top: -4px;
 }
+
 .slider:hover::-webkit-slider-thumb {
   background: #02b3e4;
 }
+
 .slider:active::-webkit-slider-thumb {
   background: #02b3e4;
 }
