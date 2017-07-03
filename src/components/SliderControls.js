@@ -41,7 +41,6 @@ const SliderControls = (props) => {
               max={props.max}
             />
             <SliderValueDisplay
-              name={slider}
               onChange={(e) => props.onChange(e,slider)}
               value={props.formState[slider]}
             />
@@ -52,7 +51,7 @@ const SliderControls = (props) => {
 }
 
 const SliderValueDisplay = (props) => {
-  return <input onChange={props.onChange} className="slider-value-display" name={props.name} type="text" value={props.value} />
+  return <input onChange={props.onChange} className="slider-value-display" type="text" value={props.value} />
 }
 
 export default SliderControls;
