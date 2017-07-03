@@ -1,5 +1,5 @@
 import argparse # command line inputs
-import cspaceThresh2Img # running the algo
+import cspaceThreshImg # running the algo
 import cv2 # for checking the image
 import json # for i/o
 import os # for filewriting
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     """To be ran from command line
 
     Usage example: 
-    python3 cspace2IO.py '{"paths":{"srcPath":"input/test.jpg","dstPath":"output/test.png","dstPath2":"output/test2.png"},"cspaceLabel":"BGR","sliderPos":[127,255,127,255,127,255]}'
+    python3 cspaceIO.py '{"paths":{"srcPath":"input/test.jpg","dstPath":"output/test.png","dstPath2":"output/test2.png"},"cspaceLabel":"BGR","sliderPos":[50,100,50,100,50,100]}'
     """
 
     parser = argparse.ArgumentParser(description='Color threshold an image in any colorspace \
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     img = __checkimg(srcPath)
 
     # run the colorspace thresh script
-    mask, masked_img = cspaceThresh2Img.main(
+    mask, masked_img = cspaceThreshImg.main(
         img, cspace, sliderPos)
 
     # write the output image
