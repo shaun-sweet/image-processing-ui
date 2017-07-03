@@ -3,7 +3,7 @@ Image Processing
 Start command: ```npm start```
 
 ### Server diagram
-(https://docs.google.com/drawings/d/1uWreipfi0DMKE4uUHaOYCQ-QzAgpVda_hICyem6VdqA/edit)[Google Drawing]
+[Google Drawing](https://docs.google.com/drawings/d/1uWreipfi0DMKE4uUHaOYCQ-QzAgpVda_hICyem6VdqA/edit)
 
 # Web interface
 
