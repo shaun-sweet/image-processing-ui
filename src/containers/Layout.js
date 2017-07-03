@@ -28,10 +28,13 @@ export default class Layout extends Component {
   }
 
   _handleSliderChange(event, slider) {
+    var val = event.target.value;
+    var result = (val === "");
+    console.log(result);
     this.setState({
       formData: {
         ...this.state.formData,
-        [slider]:  event.target.value
+        [slider]:  result ? "0" : val
       }
     })
   }
