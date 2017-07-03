@@ -69,7 +69,7 @@ export default class Layout extends Component {
             max="100"
             onChange={this._handleSliderChange}
             formState={this.state.formData}
-            />
+          />
           <UploadFileButton />
           <RenderButton />
         </form>
