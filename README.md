@@ -65,7 +65,24 @@ Upon upload, the normal full-color image should be displayed. Then once the pyth
 
 ### Input
 
-To run the python script, we need to send a JSON object into the python script `cspaceIO.py`. The JSON object needs to include the fields `path`, `cspaceLabel`, and `sliderPos`. The field `path` is itself an object with the fields `srcPath` and `dstPath`, which are the paths to the source and output images. `cspaceLabel` should be a string, with the same values allowed as the colorspace buttons, and `sliderPos` needs to be a list of the six slider positions (should be six integers).
+To run the python script, we need to send a JSON dictionary into the python script `cspaceIO.py`. The JSON dictionary needs to include the fields `paths`, `cspaceLabel`, and `sliderPos`. The field `paths` is itself a dictionary with the fields `srcPath`, `dstPath`, and `dstPath2`, which are the paths to the source and output images. `cspaceLabel` should be a string, with the same values allowed as the colorspace buttons, and `sliderPos` needs to be a list of the six slider positions (should be six integers). 
+
+Note: Output paths should **always** be specified as `.png` files.
+
+### Filetype support
+
+Note that `.gif` files are **not supported** by OpenCV. List of supported filetypes ([from OpenCV docs](http://docs.opencv.org/3.0-beta/modules/imgcodecs/doc/reading_and_writing_images.html#imread)):
+
+    Windows bitmaps - *.bmp, *.dib
+    JPEG files - *.jpeg, *.jpg, *.jpe
+    JPEG 2000 files - *.jp2
+    Portable Network Graphics - *.png
+    WebP - *.webp
+    Portable image format - *.pbm, *.pgm, *.ppm
+    Sun rasters - *.sr, *.ras
+    TIFF files - *.tiff, *.tif
+    
+Eventually may use another library to open `.gif` files since they are so prevalent (but not animated). Need to test all these filetypes to ensure the Linux distro we're using has all the proper libraries for these image types.
 
 ### Output
 
