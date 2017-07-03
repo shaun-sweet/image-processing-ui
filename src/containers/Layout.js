@@ -4,7 +4,7 @@ import ImageOutputArea from 'components/ImageOutputArea';
 import ColorspaceLabels from 'components/ColorspaceLabels';
 import RenderButton from 'components/RenderButton';
 import UploadFileButton from 'components/UploadFileButton';
-import endPointUrl from 'environment';
+import endPointUrl from 'config/environment';
 
 import 'styles/Layout.css';
 
@@ -60,6 +60,7 @@ export default class Layout extends Component {
             min="0"
             max="100"
             onChange={this._handleSliderChange}
+
           />
           <UploadFileButton />
           <RenderButton />
