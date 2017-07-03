@@ -19,7 +19,8 @@ const Slider = (props) => {
     step={props.step}
     min={props.min}
     max={props.max}
-         />
+    value={props.value}
+  />
 }
 
 const SliderControls = (props) => {
@@ -28,21 +29,21 @@ const SliderControls = (props) => {
       {sliders.map((slider) => {
         return(
           <div className="slider-container" key={slider}>
-
             <Slider
               type='range'
               className="slider"
               name={slider}
-              onChange={props.onChange}
+              onChange={(e) => props.onChange(e,slider)}
               id={slider}
               step={props.step}
               min={props.min}
-              value={props.value}
+              value={props.formState[slider]}
               max={props.max}
             />
             <SliderValueDisplay
-              id={slider}
-              value={props.value}
+              name={slider}
+              onChange={(e) => props.onChange(e,slider)}
+              value={props.formState[slider]}
             />
           </div>)
       })}
@@ -51,7 +52,7 @@ const SliderControls = (props) => {
 }
 
 const SliderValueDisplay = (props) => {
-  return <input className="slider-value-display" id={props.name} type="text" value={props.value} />
+  return <input onChange={props.onChange} className="slider-value-display" name={props.name} type="text" value={props.value} />
 }
 
 export default SliderControls;
