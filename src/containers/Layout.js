@@ -40,7 +40,7 @@ export default class Layout extends Component {
   render() {
     return (
       <div className="layout">
-        <h3> This will take an image and do image processing things to it</h3>
+        <h3>Colorspace Filter</h3>
         <form ref='uploadForm'
           onSubmit={this._handleImageUpload}
           style={{display: 'flex',
