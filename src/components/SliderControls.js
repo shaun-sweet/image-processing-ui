@@ -19,7 +19,7 @@ const Slider = (props) => {
     step={props.step}
     min={props.min}
     max={props.max}
-  />
+         />
 }
 
 const SliderControls = (props) => {
