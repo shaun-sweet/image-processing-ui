@@ -12,7 +12,9 @@ export default class Layout extends Component {
 
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      hasBeenRendered: false
+    };
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this._handleImageUpload = this._handleImageUpload.bind(this);
   }
@@ -24,6 +26,10 @@ export default class Layout extends Component {
         value: event.target.value
       }
     });
+  }
+
+  trackFirstRender() {
+    this.setState({hasBeenRendered: true})
   }
 
   _handleImageUpload(e) {
@@ -49,7 +55,7 @@ export default class Layout extends Component {
           method='post'
           encType="multipart/form-data"
         >
-          <ColorspaceLabels />
+          <ColorspaceLabels onClick={this.trackFirstRender.bind(this)} hasBeenRendered={this.state.hasBeenRendered} />
           <SliderControls
             min="0"
             max="100"
