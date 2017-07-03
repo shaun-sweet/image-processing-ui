@@ -17,11 +17,7 @@ def __cspaceSwitch(img, cspace):
 
     Keyword arguments: 
         img -- the image to convert
-        cspace -- the colorspace to convert to; see keys below
-
-    Colorspace keys:
-        0 -- BGR        1 -- HSV        2 -- HLS        3 -- Lab        
-        4 -- Luv        5 -- YCrCb      6 -- XYZ        7 -- Grayscale
+        cspace -- the colorspace to convert to; see keys in main()
 
     Returns:
         img -- img with the converted colorspace
@@ -47,23 +43,16 @@ def __cspaceBounds(cspace, slider_pos):
     colorspace based on the thresholding slider positions.
 
     Keyword arguments:
-        cspace -- the colorspace to find bounds of; see keys in __cspaceSwitch()
+        cspace -- the colorspace to find bounds of; see keys in main()
         slider_pos -- the positions of the thresholding trackbars; length 6 list
 
     Returns:
         lowerb -- np.array containing the lower bounds for each channel threshold
         upperb -- np.array containing the upper bounds for each channel threshold
     """
-    min_dict = {3: np.array([0,1,1])}
-    max_dict = {1: np.array([180,255,255]), 2: np.array([180,255,255])}
-
-    mins = min_dict.get(cspace, np.array([0,0,0]))
-    maxs = max_dict.get(cspace, np.array([255,255,255]))
 
     lowerb = np.array([slider_pos[0], slider_pos[2], slider_pos[4]])
     upperb = np.array([slider_pos[1], slider_pos[3], slider_pos[5]])
-    lowerb = lowerb * (maxs-mins) / 100 + mins # put in the correct range
-    upperb = upperb * (maxs-mins) / 100 + mins
 
     if cspace is 7: lowerb, upperb = lowerb[0], upperb[0]
 
@@ -75,15 +64,30 @@ def __cspaceRange(img, cspace, lowerb, upperb):
 
     Keyword arguments:
         img -- the image to be thresholded
-        cspace -- the colorspace to threshold in; see keys in __cspaceSwitch()
+        cspace -- the colorspace to threshold in; see keys in main()
 
     Returns:
-        bin_img -- a binary image that has been thresholded
+        mask -- a binary image that has been thresholded
     """
     img = __cspaceSwitch(img, cspace)
-    bin_img = cv2.inRange(img, lowerb, upperb)
+    mask = cv2.inRange(img, lowerb, upperb)
 
-    return bin_img
+    return mask
+
+def __applyMask(img, mask):
+    """Applies a mask to an image
+
+    Keyword arguments:
+        img -- the image to be masked
+        mask -- the mask (non-zero values are included, zero values are excluded)
+
+    Returns:
+        masked_img -- the input img with mask applied
+    """
+
+    masked_img = cv2.bitwise_and(img, img, mask=mask)
+
+    return masked_img
 
 
 
@@ -91,36 +95,25 @@ def __cspaceRange(img, cspace, lowerb, upperb):
 
 
 
-def main(img, cspace_label, slider_pos):
+def main(img, cspace, slider_pos):
     """Computes the colorspace thresholded image based on 
     slider positions and selected colorspace.
 
     Inputs:
         img -- input image
-        cspace_label -- see colorspace labels (string)
+        cspace -- see colorspace keys below (int)
         slider_pos -- positions of the six sliders (6-long int list)
 
-    Available colorspace labels:
-        BGR        HSV        HLS        Lab        
-        Luv        YCrCb      XYZ        Grayscale
+    Colorspace keys:
+        0 -- BGR        1 -- HSV        2 -- HLS        3 -- Lab        
+        4 -- Luv        5 -- YCrCb      6 -- XYZ        7 -- Grayscale
 
     returns
-        bin_img -- binary processed image
-        cspace_label -- colorspace of the image (string)
-        lowerb -- threshold lower bound (list[])
-        upperb -- threshold upper bound (list[])
+        mask -- mask created from thresholding the image
+        masked_img -- masked image
     """
-
-    # create colorspace labels to be displayed
-    cspace_dict = {'BGR':0,'HSV':1,'HLS':2,'Lab':3,'Luv':4,'YCrCb':5,'XYZ':6,'Grayscale':7}
-    cspace = cspace_dict[cspace_label]
-
-    # create thresholded image
     lowerb, upperb = __cspaceBounds(cspace, slider_pos)
-    bin_img = __cspaceRange(img, cspace, lowerb, upperb)
-
-    # output processing
-    lowerb = lowerb.tolist()
-    upperb = upperb.tolist()
+    mask = __cspaceRange(img, cspace, lowerb, upperb)
+    masked_img = __applyMask(img, mask)
     
-    return bin_img, cspace_label, lowerb, upperb
+    return mask, masked_img
