@@ -102,9 +102,12 @@ app.post('/upload', function (req, res) {
         return res.status(500).send(err);
       }
       PythonShell.run('/cspaceIO.py', passAsArgs(apiArgs), function (err, results) {
-          console.log(err);
-        if (err) throw err;
-
+        try {
+          if (err) throw err;
+        }
+        catch (e) {
+          console.error(e);
+        }
         // results is an array consisting of messages collected during execution
         console.log('results: %j', results);
         // fs.unlinkSync(apiArgs.paths.srcPath);
