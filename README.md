@@ -3,7 +3,7 @@ Image Processing
 Start command: ```npm start```
 
 ### Server diagram
-(https://docs.google.com/drawings/d/1uWreipfi0DMKE4uUHaOYCQ-QzAgpVda_hICyem6VdqA/edit)[Google Drawing]
+[Google Drawing](https://docs.google.com/drawings/d/1uWreipfi0DMKE4uUHaOYCQ-QzAgpVda_hICyem6VdqA/edit)
 
 # Web interface
 
@@ -37,7 +37,7 @@ Current implementation assumes the slider ranges are all 0 to 100. We need to ch
 The allowable slider range should depend on the colorspace selected:
 
 - BGR: `0, 255, 0, 255, 0, 255`
-- HSV: `0, 180, 0, 255, 0, 255`
+- HSV: `0, 179, 0, 255, 0, 255`
 - HLS: same as HSV
 - Lab: `0, 255, 1, 255, 1, 255`
 - Luv: same as BGR
@@ -47,11 +47,9 @@ The allowable slider range should depend on the colorspace selected:
 
 All sliders should have a step size of one.
 
-Possibly we could have different labels depending on the selected colorspace? For e.g., in the BGR colorspace, the labels could be Channel 1 (B) Min, Channel 6 (R) Max, or something.
-
 Nice-to-have: Grayscale will only use the first two sliders (it's a one-channel image). If we could gray-out the other four sliders and not allow the user to interact with them, or otherwise find a way to notify them that the other four sliders will not affect the image.
 
-Preferrably when a user switches the colorspace, we would try to move the sliders to a similar position in the new colorspace. I.e., 255 from the first slider in the BGR colorspace should be 180 in the HSV colorspace.
+Preferrably when a user switches the colorspace, we would try to move the sliders to a similar position in the new colorspace. I.e., 255 from the first slider in the BGR colorspace should be 179 in the HSV colorspace.
 
 ### Python script trigger
 
