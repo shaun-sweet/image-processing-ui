@@ -46,7 +46,8 @@ def __checkcspace(cspaceLabel):
 if __name__ == "__main__":
     """To be ran from command line
 
-    Usage example: python3 cspace2IO.py '{"paths":{imgPath":"input/test.jpg","dstPath":"output/test.png","dstPath2":"output/test2.png"},"cspaceLabel":"BGR","sliderPos":[127,255,127,255,127,255]}'
+    Usage example: 
+    python3 cspace2IO.py '{"paths":{"srcPath":"input/test.jpg","dstPath":"output/test.png","dstPath2":"output/test2.png"},"cspaceLabel":"BGR","sliderPos":[127,255,127,255,127,255]}'
     """
 
     parser = argparse.ArgumentParser(description='Color threshold an image in any colorspace \
