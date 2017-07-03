@@ -13,19 +13,27 @@ export default class Layout extends Component {
   constructor() {
     super();
     this.state = {
-      hasBeenRendered: false
+      hasBeenRendered: false,
+      formData: {
+        "c1min": 0,
+        "c1max": 100,
+        "c2min": 0,
+        "c2max": 100,
+        "c3min": 0,
+        "c3max": 100
+      }
     };
-    this.handleSliderChange = this.handleSliderChange.bind(this);
+    this._handleSliderChange = this._handleSliderChange.bind(this);
     this._handleImageUpload = this._handleImageUpload.bind(this);
   }
 
-  handleSliderChange(event) {
-    const element = event.target.getAttribute('id');
+  _handleSliderChange(event, slider) {
     this.setState({
-      [element]: {
-        value: event.target.value
+      formData: {
+        ...this.state.formData,
+        [slider]:  event.target.value
       }
-    });
+    })
   }
 
   trackFirstRender() {
@@ -60,7 +68,7 @@ export default class Layout extends Component {
             min="0"
             max="100"
             onChange={this._handleSliderChange}
-
+            formState={this.state.formData}
           />
           <UploadFileButton />
           <RenderButton />
