@@ -138,7 +138,7 @@ export default class Layout extends Component {
               <h2>Dropped files</h2>
               <ul>
                 {
-                  files.map(f => <li>{f.name} - {f.size} bytes</li>)
+                  files.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>)
                 }
               </ul>
             </div>
