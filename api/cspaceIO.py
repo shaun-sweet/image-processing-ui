@@ -47,14 +47,14 @@ if __name__ == "__main__":
     """To be ran from command line
 
     Usage example: 
-    python3 cspaceIO.py '{"paths":{"srcPath":"input/test.jpg","dstPath":"output/test.png","dstPath2":"output/test2.png"},"cspaceLabel":"BGR","sliderPos":[50,100,50,100,50,100]}'
+    python3 cspaceIO.py '{"paths":{"srcPath":"input/test.jpg","maskPath":"output/test.png","maskedPath":"output/test2.png"},"cspaceLabel":"BGR","sliderPos":[50,100,50,100,50,100]}'
     """
 
     parser = argparse.ArgumentParser(description='Color threshold an image in any colorspace \
         and save it to a file.')
 
     parser.add_argument('jsonIn',
-        help='JSON containing imgPath (str), dstPath (str), dstPath2 (str), cspaceLabel (str), and sliderPos (6-long int list[])')
+        help='JSON containing imgPath (str), maskPath (str), maskedPath (str), cspaceLabel (str), and sliderPos (6-long int list[])')
 
     args = parser.parse_args()
 
@@ -62,16 +62,16 @@ if __name__ == "__main__":
     jsonIn = json.loads(args.jsonIn)
     paths = jsonIn['paths']
     srcPath = paths['srcPath']
-    dstPath = paths['dstPath']
-    dstPath2 = paths['dstPath2']
+    maskPath = paths['maskPath']
+    maskedPath = paths['maskedPath']
     cspaceLabel = jsonIn['cspaceLabel']
     sliderPos = jsonIn['sliderPos']
 
     # check inputs
     cspace = __checkcspace(cspaceLabel)
     srcPath = __sanitize(srcPath)
-    dstPath = __sanitize(dstPath)
-    dstPath2 = __sanitize(dstPath2)
+    maskPath = __sanitize(maskPath)
+    maskedPath = __sanitize(maskedPath)
     img = __checkimg(srcPath)
 
     # run the colorspace thresh script
@@ -79,5 +79,5 @@ if __name__ == "__main__":
         img, cspace, sliderPos)
 
     # write the output image
-    cv2.imwrite(dstPath, mask)
-    cv2.imwrite(dstPath2, masked_img)
+    cv2.imwrite(maskPath, mask)
+    cv2.imwrite(maskedPath, masked_img)
