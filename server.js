@@ -34,7 +34,6 @@ app.use(function(req, res, next) {
 
 app.use(fileUpload());
 
-
 app.get('/', function (req, res) {
   let response = "filename: "+ uuidV1();
   console.log('connection handled!');
@@ -89,8 +88,7 @@ const prepareArgs = (req, srcFileName, dstFileName) => {
 
 
 app.post('/upload', function (req, res) {
-  console.log('params: ', req.body);
-  if (req.files.uploadedImage) {
+  if (req.files && req.body) {
     let srcFileName = fileNameGenerator();
     let dstFileName = fileNameGenerator();
     let apiArgs = prepareArgs(req, srcFileName, dstFileName)
@@ -115,6 +113,8 @@ app.post('/upload', function (req, res) {
       });
     });
 
+  } else {
+    res.send('sorry didnt find that file')
   }
 })
 
