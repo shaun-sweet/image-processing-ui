@@ -7,3 +7,11 @@ body {
 * {
   box-sizing: border-box;
 }
+
+#root {
+  height: 100vh;
+}
+
+#root>div {
+  height: 100%;
+}

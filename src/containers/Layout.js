@@ -16,7 +16,7 @@ export default class Layout extends Component {
     this.state = {
       accept: '',
       files: [],
-      dropzoneActive: false,
+      dropzoneActive: true,
       hasBeenRendered: false,
       formData: {
         "c1min": 0,
@@ -74,11 +74,15 @@ export default class Layout extends Component {
   }
 
   _handleImageUpload(e) {
-    var _this = this;
     e.preventDefault();
+    var _this = this;
+    let body = new FormData(document.getElementById('uploadForm'))
+    let file = this.state.files;
+    body.append('uploadedImage', file[0])
+    console.log(body);
     fetch(endPointUrl+'upload', {
     	method: 'post',
-    	body: new FormData(document.getElementById('uploadForm'))
+    	body: body
     }).then( response => response.text()
       .then( response => _this.setState({ imgUrl: response }) )
     );
@@ -92,12 +96,22 @@ export default class Layout extends Component {
       right: 0,
       bottom: 0,
       left: 0,
-      padding: '2.5em 0',
+      padding: '4.5em 0',
       background: 'rgba(0,0,0,0.5)',
       textAlign: 'center',
       color: '#fff'
     };
     return (
+      <Dropzone
+        name="uploadedImage"
+        disablePreview={false}
+        disableClick
+        style={{}}
+        multiple={false}
+        onDrop={this.onDrop.bind(this)}
+        onDragEnter={this.onDragEnter.bind(this)}
+        onDragLeave={this.onDragLeave.bind(this)}
+      >
         <div className="layout">
           <h3>Colorspace Filter</h3>
           <form ref='uploadForm'
@@ -108,15 +122,6 @@ export default class Layout extends Component {
             method='post'
             encType="multipart/form-data"
           >
-            {/* <Dropzone
-              name="uploadedImage"
-              disableClick
-              style={{}}
-              multiple={false}
-              onDrop={this.onDrop.bind(this)}
-              onDragEnter={this.onDragEnter.bind(this)}
-              onDragLeave={this.onDragLeave.bind(this)}
-            > */}
             <ColorspaceLabels onClick={this.trackFirstRender.bind(this)} hasBeenRendered={this.state.hasBeenRendered} />
             <SliderControls
               min="0"
@@ -124,7 +129,6 @@ export default class Layout extends Component {
               onChange={this._handleSliderChange}
               formState={this.state.formData}
             />
-            <UploadFileButton />
             { dropzoneActive && <div style={overlayStyle}>Drop files...</div> }
             <div>
               <h2>Dropped files</h2>
@@ -134,13 +138,13 @@ export default class Layout extends Component {
                 }
               </ul>
             </div>
-            {/* </Dropzone> */}
             <RenderButton />
           </form>
           <ImageOutputArea
             src={this.state.imgUrl}
           />
         </div>
+      </Dropzone>
     );
   }
 }

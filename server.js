@@ -88,9 +88,7 @@ const prepareArgs = (req, srcFileName, dstFileName) => {
 
 
 app.post('/upload', function (req, res) {
-  console.log('/upload params: ', req.body);
-  console.log(req.body.uploadedImage);
-  if (req.files.uploadedImage) {
+  if (req.files && req.body) {
     let srcFileName = fileNameGenerator();
     let dstFileName = fileNameGenerator();
     let apiArgs = prepareArgs(req, srcFileName, dstFileName)
@@ -115,8 +113,9 @@ app.post('/upload', function (req, res) {
       });
     });
 
+  } else {
+    res.send('sorry didnt find that file')
   }
-  res.send('sorry didnt find that file')
 })
 
 app.listen(PORT, function () {
