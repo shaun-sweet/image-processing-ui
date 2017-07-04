@@ -98,15 +98,6 @@ export default class Layout extends Component {
       color: '#fff'
     };
     return (
-      <Dropzone
-        disableClick
-        style={{}}
-        accept={accept}
-        multiple={false}
-        onDrop={this.onDrop.bind(this)}
-        onDragEnter={this.onDragEnter.bind(this)}
-        onDragLeave={this.onDragLeave.bind(this)}
-      >
         <div className="layout">
           <h3>Colorspace Filter</h3>
           <form ref='uploadForm'
@@ -117,6 +108,15 @@ export default class Layout extends Component {
             method='post'
             encType="multipart/form-data"
           >
+            {/* <Dropzone
+              name="uploadedImage"
+              disableClick
+              style={{}}
+              multiple={false}
+              onDrop={this.onDrop.bind(this)}
+              onDragEnter={this.onDragEnter.bind(this)}
+              onDragLeave={this.onDragLeave.bind(this)}
+            > */}
             <ColorspaceLabels onClick={this.trackFirstRender.bind(this)} hasBeenRendered={this.state.hasBeenRendered} />
             <SliderControls
               min="0"
@@ -134,13 +134,13 @@ export default class Layout extends Component {
                 }
               </ul>
             </div>
+            {/* </Dropzone> */}
             <RenderButton />
           </form>
           <ImageOutputArea
             src={this.state.imgUrl}
           />
         </div>
-      </Dropzone>
     );
   }
 }
