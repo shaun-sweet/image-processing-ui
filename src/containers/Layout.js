@@ -25,6 +25,10 @@ export default class Layout extends Component {
         "c2max": 100,
         "c3min": 0,
         "c3max": 100
+      },
+      imgUrls: {
+        masked: "",
+        mask: ""
       }
     };
     this._handleSliderChange = this._handleSliderChange.bind(this);
@@ -84,7 +88,7 @@ export default class Layout extends Component {
     	method: 'post',
     	body: body
     }).then( response => response.text()
-      .then( response => _this.setState({ imgUrl: response }) )
+      .then( response => _this.setState({ imgUrls: JSON.parse(response) }) )
     );
   }
 
@@ -141,7 +145,7 @@ export default class Layout extends Component {
             <RenderButton />
           </form>
           <ImageOutputArea
-            src={this.state.imgUrl}
+            images={this.state.imgUrls}
           />
         </div>
       </Dropzone>

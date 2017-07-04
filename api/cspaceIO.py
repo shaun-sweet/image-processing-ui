@@ -29,11 +29,12 @@ def __checkimg(imgPath):
     return img
 
 
-def __checkcspace(cspace):
+def __checkcspace(cspaceLabel):
     validspaces = ['BGR', 'HSV', 'HLS', 'Lab', 'Luv', 'YCrCb', 'XYZ', 'Grayscale']
-    if cspace not in validspaces:
+    if cspaceLabel not in validspaces:
          raise argparse.ArgumentTypeError("%s is an invalid colorspace, \
             must be one of: BGR, HSV, HLS, Lab, Luv, YCrCb, XYZ, or Grayscale." % cspace)
+    cspace = {label:val for label,val in zip(validspaces,range(8))}[cspaceLabel]
     return cspace
 
 
@@ -45,14 +46,15 @@ def __checkcspace(cspace):
 if __name__ == "__main__":
     """To be ran from command line
 
-    Usage example: python3 cspaceIO.py '{"imgPath":"input/test.jpg","cspaceLabel":"BGR","sliderPos":[127,255,127,255,127,255]}'
+    Usage example: 
+    python3 cspaceIO.py '{"paths":{"srcPath":"input/test.jpg","maskPath":"output/test.png","maskedPath":"output/test2.png"},"cspaceLabel":"BGR","sliderPos":[50,100,50,100,50,100]}'
     """
 
     parser = argparse.ArgumentParser(description='Color threshold an image in any colorspace \
         and save it to a file.')
 
     parser.add_argument('jsonIn',
-        help='JSON containing imgPath (str), cspaceLabel (str), and sliderPos (6-long int list[])')
+        help='JSON containing imgPath (str), maskPath (str), maskedPath (str), cspaceLabel (str), and sliderPos (6-long int list[])')
 
     args = parser.parse_args()
 
@@ -60,19 +62,22 @@ if __name__ == "__main__":
     jsonIn = json.loads(args.jsonIn)
     paths = jsonIn['paths']
     srcPath = paths['srcPath']
-    dstPath = paths['dstPath']
+    maskPath = paths['maskPath']
+    maskedPath = paths['maskedPath']
     cspaceLabel = jsonIn['cspaceLabel']
     sliderPos = jsonIn['sliderPos']
 
     # check inputs
-    cspaceLabel = __checkcspace(cspaceLabel)
+    cspace = __checkcspace(cspaceLabel)
     srcPath = __sanitize(srcPath)
-    dstPath = __sanitize(dstPath)
+    maskPath = __sanitize(maskPath)
+    maskedPath = __sanitize(maskedPath)
     img = __checkimg(srcPath)
 
     # run the colorspace thresh script
-    outImg, cspaceLabel, lowerb, upperb = cspaceThreshImg.main(
-        img, cspaceLabel, sliderPos)
+    mask, masked_img = cspaceThreshImg.main(
+        img, cspace, sliderPos)
 
     # write the output image
-    cv2.imwrite(dstPath, outImg)
+    cv2.imwrite(maskPath, mask)
+    cv2.imwrite(maskedPath, masked_img)
