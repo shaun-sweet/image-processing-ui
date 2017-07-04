@@ -1,6 +1,6 @@
 import React from 'react'
 import 'styles/imageOutputArea.css';
-import endPointUrl from 'environment';
+import endPointUrl from 'config/environment';
 
 
 const ImageOutputArea = (props) => {
