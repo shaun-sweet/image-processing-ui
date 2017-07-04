@@ -19,6 +19,16 @@ body {
   height: 100%;
 }
 
+h2 {
+  font-size: 18pt;
+  font-weight: 300;
+}
+
+li {
+  list-style: none;
+  display: inline-block
+}
+
 h3 {
   text-align: center;
   font-size: 24pt;
