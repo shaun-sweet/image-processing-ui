@@ -12,6 +12,7 @@
     "python-shell": "^0.4.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-dropzone": "^3.13.3",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
