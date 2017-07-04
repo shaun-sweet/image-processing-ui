@@ -7,10 +7,10 @@ const ImageOutputArea = (props) => {
   return (
     <div className="imageOutputArea">
       <Mask
-        src={props.images.mask}
+        src={props.src}
       />
       <MaskedImage
-        src={props.images.masked}
+
       />
     </div>
   )
@@ -30,7 +30,7 @@ const Mask = (props) => {
 const MaskedImage = (props) => {
   return (
     <div className="masked-image">
-      <img src={props.src ? endPointUrl+props.src : null} alt=""/>
+
     </div>
   )
 
