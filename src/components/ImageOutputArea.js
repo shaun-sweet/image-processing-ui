@@ -21,10 +21,10 @@ export default ImageOutputArea;
 
 const Mask = (props) => {
   return (
-        <div className="mask">
-          <img src={props.src ? endPointUrl+props.src : null} alt=""/>
-        </div>
-      )
+    <div className="mask">
+      <img src={props.src ? endPointUrl+props.src : null} alt=""/>
+    </div>
+  )
 }
 
 const MaskedImage = (props) => {
