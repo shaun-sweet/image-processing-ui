@@ -1,6 +1,6 @@
 {
   "endPointUrls": {
-    "prod": "http://vps.shaunsweet.com/",
+    "prod": "https://vps.shaunsweet.com/",
     "dev": "http://localhost:1338/"
   }
 }
