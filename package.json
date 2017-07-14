@@ -28,5 +28,6 @@
   },
   "moduleRoots": [
     "src"
-  ]
+  ],
+  "homepage": "http://alkasm.github.io/cspaceFilter"
 }
