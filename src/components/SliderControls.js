@@ -1,12 +1,8 @@
 import React from 'react'
 import 'styles/slider.css';
 import 'styles/sliderControls.css';
-// cspaceLabels = [
-//   {
-//     name: "BGR",
-//     sliderValues: [0, 255, 0, 255, 0, 255]
-//   }
-// ]
+const CONSTANTS = require('config/constants');
+
 const sliders = [
   {id: "c1min", label: "Ch 1 Min"},
   {id: "c1max", label: "Ch 1 Max"},
