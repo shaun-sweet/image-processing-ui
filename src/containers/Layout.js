@@ -33,6 +33,7 @@ export default class Layout extends Component {
     };
     this._handleSliderChange = this._handleSliderChange.bind(this);
     this._handleImageUpload = this._handleImageUpload.bind(this);
+    this.renderAttachedFileNames = this.renderAttachedFileNames.bind(this);
     this.onDrop = this.onDrop.bind(this);
   }
 
@@ -71,6 +72,12 @@ export default class Layout extends Component {
         [slider]:  result ? "0" : val
       }
     })
+  }
+
+  renderAttachedFileNames() {
+    if (this.state.files) {
+      return this.state.files.map(f => <li>{f.name} - {f.size} bytes</li>);
+    }
   }
 
   trackFirstRender() {
@@ -137,9 +144,7 @@ export default class Layout extends Component {
             <div>
               <h2>Dropped files</h2>
               <ul>
-                {
-                  files.map(f => <li>{f.name} - {f.size} bytes</li>)
-                }
+                {this.renderAttachedFileNames()}
               </ul>
             </div>
             <RenderButton />
