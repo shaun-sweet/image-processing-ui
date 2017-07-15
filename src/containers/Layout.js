@@ -135,7 +135,11 @@ export default class Layout extends Component {
             method='post'
             encType="multipart/form-data"
           >
-            <ColorspaceLabels selectionCallback={this._handleColorSpaceLabelSelection} onClick={this.trackFirstRender.bind(this)} hasBeenRendered={this.state.hasBeenRendered} />
+            <ColorspaceLabels
+              selectionCallback={this._handleColorSpaceLabelSelection}
+              onClick={this.trackFirstRender.bind(this)}
+              hasBeenRendered={this.state.hasBeenRendered}
+            />
             <SliderControls
               onChange={this._handleSliderChange}
               formState={this.state.formData}

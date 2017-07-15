@@ -28,6 +28,7 @@ const Slider = (props) => {
 }
 
 const SliderControls = (props) => {
+  // TODO Make sliders come from the props (keep in the layout state)
   const selectedColorSpaceLabel = colorSpaceLabels[props.selectedColorSpaceLabel];
   return (
     <div className='slider-controls'>
