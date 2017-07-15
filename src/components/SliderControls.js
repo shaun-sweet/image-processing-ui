@@ -1,7 +1,7 @@
 import React from 'react'
 import 'styles/slider.css';
 import 'styles/sliderControls.css';
-const CONSTANTS = require('config/constants');
+const colorSpaceLabels = require('config/constants').cspaceLabels;
 
 const sliders = [
   {id: "c1min", label: "Ch 1 Min"},
@@ -28,9 +28,10 @@ const Slider = (props) => {
 }
 
 const SliderControls = (props) => {
+  const selectedColorSpaceLabel = colorSpaceLabels[props.selectedColorSpaceLabel];
   return (
     <div className='slider-controls'>
-      {sliders.map((slider) => {
+      {selectedColorSpaceLabel.sliders.map((slider) => {
         return(
           <div className="slider-container" key={slider.id}>
             <div className="slider-titles">
@@ -43,9 +44,9 @@ const SliderControls = (props) => {
               onChange={(e) => props.onChange(e,slider.id)}
               id={slider.id}
               step={props.step}
-              min={props.min}
+              min={slider.min}
               value={props.formState[slider.id]}
-              max={props.max}
+              max={slider.max}
             />
             <SliderValueDisplay
               onChange={(e) => props.onChange(e,slider.id)}
