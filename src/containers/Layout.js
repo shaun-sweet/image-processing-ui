@@ -35,6 +35,7 @@ export default class Layout extends Component {
     this._handleImageUpload = this._handleImageUpload.bind(this);
     this.renderAttachedFileNames = this.renderAttachedFileNames.bind(this);
     this.onDrop = this.onDrop.bind(this);
+    this.renderDropZoneIfActive = this.renderDropZoneIfActive.bind(this);
   }
 
   onDragEnter() {
@@ -99,19 +100,13 @@ export default class Layout extends Component {
     );
   }
 
+  renderDropZoneIfActive() {
+    if (this.state.dropzoneActive) {
+      return <div style={overlayStyle}>Drop files...</div>;
+    }
+  }
+
   render() {
-    const { accept, files, dropzoneActive } = this.state;
-    const overlayStyle = {
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0,
-      padding: '4.5em 0',
-      background: 'rgba(0,0,0,0.5)',
-      textAlign: 'center',
-      color: '#fff'
-    };
     return (
       <Dropzone
         name="uploadedImage"
@@ -140,7 +135,7 @@ export default class Layout extends Component {
               onChange={this._handleSliderChange}
               formState={this.state.formData}
             />
-            { dropzoneActive && <div style={overlayStyle}>Drop files...</div> }
+            { this.renderDropZoneIfActive()}
             <div>
               <h2>Dropped files</h2>
               <ul>
@@ -157,3 +152,14 @@ export default class Layout extends Component {
     );
   }
 }
+const overlayStyle = {
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  padding: '4.5em 0',
+  background: 'rgba(0,0,0,0.5)',
+  textAlign: 'center',
+  color: '#fff'
+};
