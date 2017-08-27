@@ -4,7 +4,7 @@ body {
   font-family: sans-serif;
   font-weight: 300;
   color: #2a3a3f;
-  font-size: 14pt;
+  font-size: 10pt;
 }
 
 * {
@@ -17,6 +17,8 @@ body {
 
 #root>div {
   height: 100%;
+  display: flex;
+  flex-flow: column;
 }
 
 h2 {
