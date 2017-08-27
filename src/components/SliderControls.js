@@ -19,6 +19,7 @@ const Slider = (props) => {
     name={props.name}
     key={props.name}
     onChange={props.onChange}
+    onMouseUp={props.renderOnMouseUp}
     id={props.name}
     step={props.step}
     min={props.min}
@@ -41,6 +42,7 @@ const SliderControls = (props) => {
             <Slider
               type='range'
               className="slider"
+              renderOnMouseUp={props.renderOnMouseUp}
               name={slider.id}
               onChange={(e) => props.onChange(e,slider.id)}
               id={slider.id}
