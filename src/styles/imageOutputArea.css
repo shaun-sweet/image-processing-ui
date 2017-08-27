@@ -1,12 +1,32 @@
 .imageOutputArea {
+  flex: 1;
+  margin-left: 1em;
+  display: flex;
+  flex-flow: column;
+}
 
+.image-output-tab {
+  display: flex;
+  justify-content: center;
+}
 
+.image-output-tab span {
+  margin: 1em;
+  cursor: pointer;
 }
 
 .mask {
-  
+  width: 100%;
 }
 
 .masked-image {
+  width: 100%;
+}
 
+.masked-image>img {
+  max-width: 100%;
+}
+
+.mask>img {
+  max-width: 100%;
 }
