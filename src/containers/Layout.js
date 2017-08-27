@@ -16,7 +16,7 @@ export default class Layout extends Component {
     this.state = {
       accept: '',
       files: [],
-      dropzoneActive: false,
+      dropzoneActive: true,
       hasBeenRendered: false,
       selectedColorSpaceLabel: "BGR",
       formData: {
@@ -66,7 +66,6 @@ export default class Layout extends Component {
   }
 
   _handleColorSpaceLabelSelection(selectedColorSpaceLabel) {
-    console.log(selectedColorSpaceLabel)
     this.setState({selectedColorSpaceLabel});
   }
 
