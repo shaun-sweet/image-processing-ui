@@ -9,7 +9,7 @@ const ColorspaceLabels = (props) => {
     return (
       <div onClick={props.onClick} className="colorspace-labels">
         <div key="BGR">
-          <input onChange={() => console.log('hello')} checked id="BGR" type="radio" name="colorSpaceLabel" value="BGR" />
+          <input checked id="BGR" type="radio" name="colorSpaceLabel" value="BGR" />
           <label htmlFor="BGR">BGR</label>
         </div>
         {renderColorspaceLabels(props.onChange)}
