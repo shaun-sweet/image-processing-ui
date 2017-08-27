@@ -15,7 +15,7 @@ export default class Layout extends Component {
     this.state = {
       accept: '',
       files: [],
-      dropzoneActive: true,
+      dropzoneActive: false,
       hasBeenRendered: false,
       selectedColorSpaceLabel: "BGR",
       formData: {
