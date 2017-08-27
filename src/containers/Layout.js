@@ -33,8 +33,7 @@ export default class Layout extends Component {
       }
     };
     this._handleSliderChange = this._handleSliderChange.bind(this);
-    this._handleImageUpload = this._handleImageUpload.bind(this);
-    this.renderAttachedFileNames = this.renderAttachedFileNames.bind(this);
+    this.renderImage = this.renderImage.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.renderDropZoneIfActive = this.renderDropZoneIfActive.bind(this);
     this._handleColorSpaceLabelSelection = this._handleColorSpaceLabelSelection.bind(this);
@@ -52,11 +51,12 @@ export default class Layout extends Component {
     });
   }
 
-  onDrop(files) {
-    this.setState({
+  async onDrop(files) {
+    await this.setState({
       files,
       dropzoneActive: false
     });
+    this.renderImage();
   }
 
   applyMimeTypes(event) {
@@ -65,8 +65,9 @@ export default class Layout extends Component {
     });
   }
 
-  _handleColorSpaceLabelSelection(selectedColorSpaceLabel) {
-    this.setState({selectedColorSpaceLabel});
+  async _handleColorSpaceLabelSelection(selectedColorSpaceLabel) {
+    await this.setState({selectedColorSpaceLabel});
+    this.renderImage();
   }
 
   _handleSliderChange(event, slider) {
@@ -78,25 +79,19 @@ export default class Layout extends Component {
         ...this.state.formData,
         [slider]:  result ? "0" : val
       }
-    })
-  }
-
-  renderAttachedFileNames() {
-    if (this.state.files) {
-      return this.state.files.map(f => <li>{f.name} - {f.size} bytes</li>);
-    }
+    });
   }
 
   trackFirstRender() {
-    this.setState({hasBeenRendered: true})
+    this.setState({hasBeenRendered: true});
   }
 
-  _handleImageUpload(e) {
-    e.preventDefault();
+  renderImage() {
     var _this = this;
-    let body = new FormData(document.getElementById('uploadForm'))
+    let body = new FormData(document.getElementById('uploadForm'));
     let file = this.state.files;
-    body.append('uploadedImage', file[0])
+    body.append('uploadedImage', file[0]);
+    body.set('colorSpaceLabel', this.state.selectedColorSpaceLabel)
     console.log(body);
     fetch(endPointUrl+'upload', {
     	method: 'post',
@@ -127,7 +122,7 @@ export default class Layout extends Component {
         <div className="layout">
           <h3>Colorspace Filter</h3>
           <form ref='uploadForm'
-            onSubmit={this._handleImageUpload}
+            onSubmit={this.renderImage}
             style={{display: 'flex',
             flexFlow: 'column'}}
             id='uploadForm'
@@ -141,17 +136,11 @@ export default class Layout extends Component {
             />
             <SliderControls
               onChange={this._handleSliderChange}
+              renderOnMouseUp={this.renderImage}
               formState={this.state.formData}
               selectedColorSpaceLabel={this.state.selectedColorSpaceLabel}
             />
             { this.renderDropZoneIfActive()}
-            <div>
-              <h2>Dropped files</h2>
-              <ul>
-                {this.renderAttachedFileNames()}
-              </ul>
-            </div>
-            <RenderButton />
           </form>
           <ImageOutputArea
             images={this.state.imgUrls}
