@@ -22,6 +22,9 @@ export default class ImageOutputArea extends Component {
   }
 
   render () {
+    if (!this.props.images.mask) {
+      return null;
+    }
     return (
       <div className="imageOutputArea">
         <div className="image-output-tab">
