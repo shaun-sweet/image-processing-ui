@@ -18,13 +18,14 @@ export default class Layout extends Component {
       files: [],
       dropzoneActive: true,
       hasBeenRendered: false,
+      selectedColorSpaceLabel: "BGR",
       formData: {
         "c1min": 0,
-        "c1max": 100,
+        "c1max": 255,
         "c2min": 0,
-        "c2max": 100,
+        "c2max": 255,
         "c3min": 0,
-        "c3max": 100
+        "c3max": 255
       },
       imgUrls: {
         masked: "",
@@ -36,6 +37,7 @@ export default class Layout extends Component {
     this.renderAttachedFileNames = this.renderAttachedFileNames.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.renderDropZoneIfActive = this.renderDropZoneIfActive.bind(this);
+    this._handleColorSpaceLabelSelection = this._handleColorSpaceLabelSelection.bind(this);
   }
 
   onDragEnter() {
@@ -61,6 +63,10 @@ export default class Layout extends Component {
     this.setState({
       accept: event.target.value
     });
+  }
+
+  _handleColorSpaceLabelSelection(selectedColorSpaceLabel) {
+    this.setState({selectedColorSpaceLabel});
   }
 
   _handleSliderChange(event, slider) {
@@ -128,12 +134,15 @@ export default class Layout extends Component {
             method='post'
             encType="multipart/form-data"
           >
-            <ColorspaceLabels onClick={this.trackFirstRender.bind(this)} hasBeenRendered={this.state.hasBeenRendered} />
+            <ColorspaceLabels
+              selectionCallback={this._handleColorSpaceLabelSelection}
+              onClick={this.trackFirstRender.bind(this)}
+              hasBeenRendered={this.state.hasBeenRendered}
+            />
             <SliderControls
-              min="0"
-              max="100"
               onChange={this._handleSliderChange}
               formState={this.state.formData}
+              selectedColorSpaceLabel={this.state.selectedColorSpaceLabel}
             />
             { this.renderDropZoneIfActive()}
             <div>

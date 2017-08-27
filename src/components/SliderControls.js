@@ -1,12 +1,8 @@
 import React from 'react'
 import 'styles/slider.css';
 import 'styles/sliderControls.css';
-// cspaceLabels = [
-//   {
-//     name: "BGR",
-//     sliderValues: [0, 255, 0, 255, 0, 255]
-//   }
-// ]
+const colorSpaceLabels = require('config/constants').cspaceLabels;
+
 const sliders = [
   {id: "c1min", label: "Ch 1 Min"},
   {id: "c1max", label: "Ch 1 Max"},
@@ -32,9 +28,11 @@ const Slider = (props) => {
 }
 
 const SliderControls = (props) => {
+  // TODO Make sliders come from the props (keep in the layout state)
+  const selectedColorSpaceLabel = colorSpaceLabels[props.selectedColorSpaceLabel];
   return (
     <div className='slider-controls'>
-      {sliders.map((slider) => {
+      {selectedColorSpaceLabel.sliders.map((slider) => {
         return(
           <div className="slider-container" key={slider.id}>
             <div className="slider-titles">
@@ -47,9 +45,9 @@ const SliderControls = (props) => {
               onChange={(e) => props.onChange(e,slider.id)}
               id={slider.id}
               step={props.step}
-              min={props.min}
+              min={slider.min}
               value={props.formState[slider.id]}
-              max={props.max}
+              max={slider.max}
             />
             <SliderValueDisplay
               onChange={(e) => props.onChange(e,slider.id)}
@@ -59,6 +57,10 @@ const SliderControls = (props) => {
       })}
 
     </div>)
+}
+
+const renderSliders = (sliders, formState, onChange) => {
+
 }
 
 const SliderValueDisplay = (props) => {
