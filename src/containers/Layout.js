@@ -32,7 +32,7 @@ export default class Layout extends Component {
       }
     };
     this._handleSliderChange = this._handleSliderChange.bind(this);
-    this._handleImageUpload = this._handleImageUpload.bind(this);
+    this._renderImage = this._renderImage.bind(this);
     this.renderAttachedFileNames = this.renderAttachedFileNames.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.renderDropZoneIfActive = this.renderDropZoneIfActive.bind(this);
@@ -50,11 +50,12 @@ export default class Layout extends Component {
     });
   }
 
-  onDrop(files) {
-    this.setState({
+  async onDrop(files) {
+    await this.setState({
       files,
       dropzoneActive: false
     });
+    this._renderImage();
   }
 
   applyMimeTypes(event) {
@@ -66,13 +67,12 @@ export default class Layout extends Component {
   _handleSliderChange(event, slider) {
     var val = event.target.value;
     var result = (val === "");
-    console.log(result);
     this.setState({
       formData: {
         ...this.state.formData,
         [slider]:  result ? "0" : val
       }
-    })
+    });
   }
 
   renderAttachedFileNames() {
@@ -85,8 +85,7 @@ export default class Layout extends Component {
     this.setState({hasBeenRendered: true})
   }
 
-  _handleImageUpload(e) {
-    e.preventDefault();
+  _renderImage() {
     var _this = this;
     let body = new FormData(document.getElementById('uploadForm'))
     let file = this.state.files;
@@ -119,30 +118,23 @@ export default class Layout extends Component {
         onDragLeave={this.onDragLeave.bind(this)}
       >
         <div className="layout">
-          <h3>Colorspace Filter</h3>
           <form ref='uploadForm'
-            onSubmit={this._handleImageUpload}
+            onSubmit={this._renderImage}
             style={{display: 'flex',
             flexFlow: 'column'}}
             id='uploadForm'
             method='post'
             encType="multipart/form-data"
           >
-            <ColorspaceLabels onClick={this.trackFirstRender.bind(this)} hasBeenRendered={this.state.hasBeenRendered} />
+            <ColorspaceLabels onChange={this._renderImage} onClick={this.trackFirstRender.bind(this)} hasBeenRendered={this.state.hasBeenRendered} />
             <SliderControls
               min="0"
               max="100"
+              onMouseUp={this._renderImage}
               onChange={this._handleSliderChange}
               formState={this.state.formData}
             />
             { this.renderDropZoneIfActive()}
-            <div>
-              <h2>Dropped files</h2>
-              <ul>
-                {this.renderAttachedFileNames()}
-              </ul>
-            </div>
-            <RenderButton />
           </form>
           <ImageOutputArea
             images={this.state.imgUrls}
