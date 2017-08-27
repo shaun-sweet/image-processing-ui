@@ -10,9 +10,9 @@ const ColorspaceLabels = (props) => {
       <div onClick={props.onClick} className="colorspace-labels">
         <div key="BGR">
           <input checked id="BGR" type="radio" name="colorSpaceLabel" value="BGR" />
-          <label htmlFor="BGR">BGR</label>
+          <label onClick={(e) => props.selectionCallback("BGR")} htmlFor="BGR">BGR</label>
         </div>
-        {renderColorspaceLabels()}
+        {renderColorspaceLabels(props.selectionCallback)}
       </div>
     )
   } else {
@@ -20,25 +20,25 @@ const ColorspaceLabels = (props) => {
       <div className="colorspace-labels">
         <div key="BGR">
           <input id="BGR" type="radio" name="colorSpaceLabel" value="BGR" />
-          <label htmlFor="BGR">BGR</label>
+          <label onClick={(e) => props.selectionCallback("BGR")} htmlFor="BGR">BGR</label>
         </div>
-        {renderColorspaceLabels()}
+        {renderColorspaceLabels(props.selectionCallback)}
       </div>
     )
   }
 }
 
 
-const renderColorspaceLabels = () => {
+const renderColorspaceLabels = (selectionCallback) => {
   const labels = ["HSV", "HLS", "Lab", "Luv", "YCrCb", "XYZ", "Grayscale"];
   return labels.map(label => {
     return (
       <div key={label}>
         <input id={label} type="radio" name="colorSpaceLabel" value={label} />
-        <label htmlFor={label}>{label}</label>
+        <label onClick={(e) => selectionCallback(label)} htmlFor={label}>{label}</label>
       </div>
     )
   });
-};
+}
 
 export default ColorspaceLabels;

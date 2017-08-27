@@ -1,6 +1,84 @@
 {
   "endPointUrls": {
-    "prod": "http://vps.shaunsweet.com/",
-    "dev": "http://localhost:3001/"
+    "prod": "https://vps.shaunsweet.com/",
+    "dev": "http://localhost:1338/"
+  },
+  "cspaceLabels": {
+    "BGR": {
+      "sliders": [
+        {"id": "c1min", "label": "Ch 1 Min", "min": 0, "max": 255},
+        {"id": "c1max", "label": "Ch 1 Max", "min": 0, "max": 255},
+        {"id": "c2min", "label": "Ch 2 Min", "min": 0, "max": 255},
+        {"id": "c2max", "label": "Ch 2 Max", "min": 0, "max": 255},
+        {"id": "c3min", "label": "Ch 3 Min", "min": 0, "max": 255},
+        {"id": "c3max", "label": "Ch 3 Max", "min": 0, "max": 255}
+      ]
+    },
+    "HSV": {
+      "sliders": [
+        {"id": "c1min", "label": "Ch 1 Min", "min": 0, "max": 179},
+        {"id": "c1max", "label": "Ch 1 Max", "min": 0, "max": 179},
+        {"id": "c2min", "label": "Ch 2 Min", "min": 0, "max": 255},
+        {"id": "c2max", "label": "Ch 2 Max", "min": 0, "max": 255},
+        {"id": "c3min", "label": "Ch 3 Min", "min": 0, "max": 255},
+        {"id": "c3max", "label": "Ch 3 Max", "min": 0, "max": 255}
+      ]
+    },
+    "HLS": {
+      "sliders": [
+        {"id": "c1min", "label": "Ch 1 Min", "min": 0, "max": 179},
+        {"id": "c1max", "label": "Ch 1 Max", "min": 0, "max": 179},
+        {"id": "c2min", "label": "Ch 2 Min", "min": 0, "max": 255},
+        {"id": "c2max", "label": "Ch 2 Max", "min": 0, "max": 255},
+        {"id": "c3min", "label": "Ch 3 Min", "min": 0, "max": 255},
+        {"id": "c3max", "label": "Ch 3 Max", "min": 0, "max": 255}
+      ]
+    },
+    "Lab": {
+      "sliders": [
+        {"id": "c1min", "label": "Ch 1 Min", "min": 0, "max": 255},
+        {"id": "c1max", "label": "Ch 1 Max", "min": 0, "max": 255},
+        {"id": "c2min", "label": "Ch 2 Min", "min": 1, "max": 255},
+        {"id": "c2max", "label": "Ch 2 Max", "min": 1, "max": 255},
+        {"id": "c3min", "label": "Ch 3 Min", "min": 1, "max": 255},
+        {"id": "c3max", "label": "Ch 3 Max", "min": 1, "max": 255}
+      ]
+    },
+    "Luv": {
+      "sliders": [
+        {"id": "c1min", "label": "Ch 1 Min", "min": 0, "max": 255},
+        {"id": "c1max", "label": "Ch 1 Max", "min": 0, "max": 255},
+        {"id": "c2min", "label": "Ch 2 Min", "min": 0, "max": 255},
+        {"id": "c2max", "label": "Ch 2 Max", "min": 0, "max": 255},
+        {"id": "c3min", "label": "Ch 3 Min", "min": 0, "max": 255},
+        {"id": "c3max", "label": "Ch 3 Max", "min": 0, "max": 255}
+      ]
+    },
+    "YCrCb": {
+      "sliders": [
+        {"id": "c1min", "label": "Ch 1 Min", "min": 0, "max": 255},
+        {"id": "c1max", "label": "Ch 1 Max", "min": 0, "max": 255},
+        {"id": "c2min", "label": "Ch 2 Min", "min": 0, "max": 255},
+        {"id": "c2max", "label": "Ch 2 Max", "min": 0, "max": 255},
+        {"id": "c3min", "label": "Ch 3 Min", "min": 0, "max": 255},
+        {"id": "c3max", "label": "Ch 3 Max", "min": 0, "max": 255}
+      ]
+    },
+    "XYZ": {
+      "sliders": [
+        {"id": "c1min", "label": "Ch 1 Min", "min": 0, "max": 255},
+        {"id": "c1max", "label": "Ch 1 Max", "min": 0, "max": 255},
+        {"id": "c2min", "label": "Ch 2 Min", "min": 0, "max": 255},
+        {"id": "c2max", "label": "Ch 2 Max", "min": 0, "max": 255},
+        {"id": "c3min", "label": "Ch 3 Min", "min": 0, "max": 255},
+        {"id": "c3max", "label": "Ch 3 Max", "min": 0, "max": 255}
+      ]
+    },
+    "Grayscale": {
+      "sliders": [
+        {"id": "c1min", "label": "Ch 1 Min", "min": 0, "max": 255},
+        {"id": "c1max", "label": "Ch 1 Max", "min": 0, "max": 255}
+      ]
+    }
   }
 }
