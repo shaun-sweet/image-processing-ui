@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import SliderControls from 'components/SliderControls';
 import ImageOutputArea from 'components/ImageOutputArea';
 import ColorspaceLabels from 'components/ColorspaceLabels';
-import RenderButton from 'components/RenderButton';
 import UploadFileButton from 'components/UploadFileButton';
 import Dropzone from 'react-dropzone'
 import endPointUrl from 'config/environment';
