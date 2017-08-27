@@ -77,11 +77,7 @@
     "Grayscale": {
       "sliders": [
         {"id": "c1min", "label": "Ch 1 Min", "min": 0, "max": 255},
-        {"id": "c1max", "label": "Ch 1 Max", "min": 0, "max": 255},
-        {"id": "c2min", "label": "Ch 2 Min", "min": 0, "max": 255},
-        {"id": "c2max", "label": "Ch 2 Max", "min": 0, "max": 255},
-        {"id": "c3min", "label": "Ch 3 Min", "min": 0, "max": 255},
-        {"id": "c3max", "label": "Ch 3 Max", "min": 0, "max": 255}
+        {"id": "c1max", "label": "Ch 1 Max", "min": 0, "max": 255}
       ]
     }
   }
