@@ -5,6 +5,16 @@
   flex-flow: column;
 }
 
+.image-output-tab {
+  display: flex;
+  justify-content: center;
+}
+
+.image-output-tab span {
+  margin: 1em;
+  cursor: pointer;
+}
+
 .mask {
   width: 100%;
 }

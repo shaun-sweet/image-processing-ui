@@ -11,7 +11,7 @@
   flex: .5;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1440px) {
   .layout {
     flex-flow: row;
   }
