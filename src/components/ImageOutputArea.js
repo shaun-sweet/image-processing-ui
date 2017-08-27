@@ -1,27 +1,32 @@
-import React from 'react'
+import React, { Component } from 'react'
 import 'styles/imageOutputArea.css';
 import endPointUrl from 'config/environment';
 
 
-const ImageOutputArea = (props) => {
-  return (
-    <div className="imageOutputArea">
-      <Mask
-        src={props.images.mask}
-      />
-      <MaskedImage
-        src={props.images.masked}
-      />
-    </div>
-  )
+export default class ImageOutputArea extends Component {
+  constructor() {
+    super();
+    this.state = {
+      hello: 'world'
+    }
+  }
+  render () {
+    return (
+      <div className="imageOutputArea">
+        <Mask
+          src={this.props.images.mask}
+        />
+        <MaskedImage
+          src={this.props.images.masked}
+        />
+    </div>)
+  }
 }
-
-export default ImageOutputArea;
-
 
 const Mask = (props) => {
   return (
     <div className="mask">
+      {props.src ? <h6>Mask</h6> : null}
       <img src={props.src ? endPointUrl+props.src : null} alt=""/>
     </div>
   )
@@ -31,7 +36,8 @@ const MaskedImage = (props) => {
   return (
     <div className="masked-image">
       <img src={props.src ? endPointUrl+props.src : null} alt=""/>
-    </div>
-  )
+      {props.src ? <h6>Mask Applied</h6> : null}
+        </div>
+        )
 
-}
+        }

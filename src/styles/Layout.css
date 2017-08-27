@@ -1,6 +1,18 @@
+/*Stacked screen size for smaller devices*/
+
 .layout {
   display: flex;
+  padding: 2em;
   flex-flow: column;
-  width: 80%;
-  margin: 0 auto;
+  height: 100%;
+}
+
+.appControls {
+  flex: .5;
+}
+
+@media (min-width: 1000px) {
+  .layout {
+    flex-flow: row;
+  }
 }

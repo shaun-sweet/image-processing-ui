@@ -61,10 +61,6 @@ const SliderControls = (props) => {
     </div>)
 }
 
-const renderSliders = (sliders, formState, onChange) => {
-
-}
-
 const SliderValueDisplay = (props) => {
   return <input onChange={props.onChange} className="slider-value-display" type="text" value={props.value} />
 }

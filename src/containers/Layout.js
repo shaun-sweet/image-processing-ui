@@ -15,7 +15,7 @@ export default class Layout extends Component {
     this.state = {
       accept: '',
       files: [],
-      dropzoneActive: true,
+      dropzoneActive: false,
       hasBeenRendered: false,
       selectedColorSpaceLabel: "BGR",
       formData: {
@@ -118,29 +118,31 @@ export default class Layout extends Component {
         onDragEnter={this.onDragEnter.bind(this)}
         onDragLeave={this.onDragLeave.bind(this)}
       >
+        <h3>Colorspace Filter</h3>
         <div className="layout">
-          <h3>Colorspace Filter</h3>
-          <form ref='uploadForm'
-            onSubmit={this.renderImage}
-            style={{display: 'flex',
-            flexFlow: 'column'}}
-            id='uploadForm'
-            method='post'
-            encType="multipart/form-data"
-          >
-            <ColorspaceLabels
-              selectionCallback={this._handleColorSpaceLabelSelection}
-              onClick={this.trackFirstRender.bind(this)}
-              hasBeenRendered={this.state.hasBeenRendered}
-            />
-            <SliderControls
-              onChange={this._handleSliderChange}
-              renderOnMouseUp={this.renderImage}
-              formState={this.state.formData}
-              selectedColorSpaceLabel={this.state.selectedColorSpaceLabel}
-            />
-            { this.renderDropZoneIfActive()}
-          </form>
+          <div className="appControls">
+            <form ref='uploadForm'
+              onSubmit={this.renderImage}
+              style={{display: 'flex',
+              flexFlow: 'column'}}
+              id='uploadForm'
+              method='post'
+              encType="multipart/form-data"
+            >
+              <ColorspaceLabels
+                selectionCallback={this._handleColorSpaceLabelSelection}
+                onClick={this.trackFirstRender.bind(this)}
+                hasBeenRendered={this.state.hasBeenRendered}
+              />
+              <SliderControls
+                onChange={this._handleSliderChange}
+                renderOnMouseUp={this.renderImage}
+                formState={this.state.formData}
+                selectedColorSpaceLabel={this.state.selectedColorSpaceLabel}
+              />
+              { this.renderDropZoneIfActive()}
+            </form>
+          </div>
           <ImageOutputArea
             images={this.state.imgUrls}
           />
